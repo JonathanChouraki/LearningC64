@@ -1,4 +1,6 @@
-/* Clear the screen to black, then display a message without using jsr $e716 subroutine */
+/*
+* Display a message with a rotating color watch
+*/
 
 .pc =$0801
 	:BasicUpstart($1000)
