@@ -1,8 +1,8 @@
 /* Clear the screen to black, then display a message without using jsr $e716 subroutine */
 
-.pc =$0801 
+.pc =$0801
 	:BasicUpstart($1000)
-	
+
 .pc = $1000
 
 init:
@@ -10,13 +10,13 @@ init:
 	lda #$0
 	ldx #$0
     sta $d021
-    sta $d020	
+    sta $d020
 	jsr clear
 
 // we want to display the message stored at the msg label
-	
+
 main:
-	lda msg, x  // load a byte of message	
+	lda msg, x  // load a byte of message
 	cmp #$040  // if the char > $40, we need to convert it to correct set of characters (see http://tnd64.unikat.sk/assemble_it3.html)
 	bcc display_char // carry clear = not over $040, so we display the character
 	sec // clear the carry
@@ -56,24 +56,24 @@ clear:
 	sta $0400, x
 	sta $0500, x
 	sta $0600, x
-	sta $0700, x	
+	sta $0700, x
 	inx
-	bne clear	
-	rts	
+	bne clear
+	rts
 
 delay:
 	ldy #$4f
 	dey
 	bne delay+2
 	rts
-	
-msg:	
+
+msg:
 	.text "PIXELCAKE IS PROUD TO PRESENT..."
 	.byte $0
-	
+
 offset:
 	.byte $0
-	
+
 color_watch:
 	.byte $1, $1, $1, $1, $1, $1, $1, $1, $1, $1
 	.byte $1, $1, $1, $1, $1, $1, $1, $1, $1, $1
